@@ -1,6 +1,6 @@
 import { Entypo } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -22,10 +22,6 @@ const user = {
 export const CreatePostScreen = () => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
-
-  useEffect(() => {
-    console.log("IMAGE: ", image);
-  }, [image]);
 
   const onPost = () => {
     console.warn("Posting: ", description);
