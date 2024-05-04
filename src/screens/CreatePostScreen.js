@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import { Entypo } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -19,10 +21,30 @@ const user = {
 
 export const CreatePostScreen = () => {
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    console.log("IMAGE: ", image);
+  }, [image]);
 
   const onPost = () => {
     console.warn("Posting: ", description);
     setDescription("");
+  };
+
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
   };
 
   return (
@@ -36,6 +58,13 @@ export const CreatePostScreen = () => {
       <View style={styles.header}>
         <Image source={{ uri: user.image }} style={styles.profileImage} />
         <Text style={styles.name}>{user.name}</Text>
+        <Entypo
+          onPress={pickImage}
+          name="images"
+          size={24}
+          color="limegreen"
+          style={styles.icon}
+        />
       </View>
       <TextInput
         placeholder="What's on your mind?"
@@ -44,6 +73,9 @@ export const CreatePostScreen = () => {
         style={styles.input}
         multiline
       />
+
+      <Image source={{ uri: image }} style={styles.image} />
+
       <View style={styles.buttonContainer}>
         <Button onPress={onPost} title="Post" disabled={!description} />
       </View>
@@ -80,5 +112,10 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: "auto",
     marginVertical: 10,
+  },
+  icon: { marginLeft: "auto" },
+  image: {
+    width: "100%",
+    aspectRatio: 4 / 3,
   },
 });
