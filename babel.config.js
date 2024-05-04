@@ -13,11 +13,11 @@ module.exports = function (api) {
             "@Navigation": "./src/navigation",
             "@Components": "./src/components",
             "@Screens": "./src/screens",
-            "@Assets": "./assets"
+            "@Assets": "./assets",
           },
-          extensions: [".js", ".jsx", ".ts", ".tsx"]
-        }
-      ]
-    ]
+          extensions: [".js", ".jsx", ".ts", ".tsx"],
+        },
+      ],
+    ],
   };
 };

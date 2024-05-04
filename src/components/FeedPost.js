@@ -1,14 +1,16 @@
-import { StyleSheet, Text, Image, View } from "react-native";
+import LikeImage from "@Assets/images/like.png";
 import {
   Entypo,
   AntDesign,
   FontAwesome5,
-  MaterialCommunityIcons
+  MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import LikeImage from "@Assets/images/like.png";
+import { useState } from "react";
+import { StyleSheet, Text, Image, View, Pressable } from "react-native";
 
 export const FeedPost = ({ post }) => {
-  console.log(post);
+  const [isLiked, setIsLiked] = useState(false);
+
   return (
     <View style={styles.post}>
       {/* Post Header with details about the author */}
@@ -50,10 +52,24 @@ export const FeedPost = ({ post }) => {
         {/* Buttons row */}
         <View style={styles.buttonsRow}>
           {/* Like button */}
-          <View style={styles.iconButton}>
-            <AntDesign name="like2" size={18} color="gray" />
-            <Text style={styles.iconButtonText}>Like</Text>
-          </View>
+          <Pressable
+            style={styles.iconButton}
+            onPress={() => setIsLiked(!isLiked)}
+          >
+            <AntDesign
+              name="like1"
+              size={18}
+              color={isLiked ? "royalblue" : "gray"}
+            />
+            <Text
+              style={[
+                styles.iconButtonText,
+                { color: isLiked ? "royalblue" : "gray" },
+              ]}
+            >
+              Like
+            </Text>
+          </Pressable>
 
           {/* Comment button */}
           <View style={styles.iconButton}>
@@ -79,7 +95,7 @@ export const FeedPost = ({ post }) => {
 const styles = StyleSheet.create({
   post: {
     backgroundColor: "#fff",
-    marginVertical: 5
+    marginVertical: 5,
   },
 
   // Header
@@ -87,37 +103,37 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: "row",
     alignItems: "center",
-    width: "100%"
+    width: "100%",
   },
   profileImage: {
     width: 40,
     height: 40,
     borderRadius: 25,
-    marginRight: 10
+    marginRight: 10,
   },
   name: {
-    fontWeight: "500"
+    fontWeight: "500",
   },
   subtitle: {
-    color: "gray"
+    color: "gray",
   },
   icon: {
-    marginLeft: "auto"
+    marginLeft: "auto",
   },
 
   // Body
   description: {
     lineHeight: 20,
-    padding: 10
+    padding: 10,
   },
   image: {
     width: "100%",
-    aspectRatio: 1
+    aspectRatio: 1,
   },
 
   // Footer
   footer: {
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
 
   // Stats Row
@@ -125,34 +141,34 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderBottomWidth: StyleSheet.hairlineWidth,
     paddingVertical: 10,
-    borderColor: "lightgray"
+    borderColor: "lightgray",
   },
   likeIcon: {
     width: 20,
     height: 20,
-    marginRight: 5
+    marginRight: 5,
   },
   likedBy: {
-    color: "gray"
+    color: "gray",
   },
   shares: {
     color: "gray",
-    marginLeft: "auto"
+    marginLeft: "auto",
   },
 
   // Buttons Row
   buttonsRow: {
     marginVertical: 10,
     flexDirection: "row",
-    justifyContent: "space-around"
+    justifyContent: "space-around",
   },
   iconButton: {
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   iconButtonText: {
     color: "gray",
     marginLeft: 5,
-    fontWeight: "500"
-  }
+    fontWeight: "500",
+  },
 });
