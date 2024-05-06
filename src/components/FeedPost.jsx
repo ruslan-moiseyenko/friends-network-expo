@@ -5,28 +5,38 @@ import {
   FontAwesome5,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { StyleSheet, Text, Image, View, Pressable } from "react-native";
 
 export const FeedPost = ({ post }) => {
   const [isLiked, setIsLiked] = useState(false);
+  const navigation = useNavigation();
 
   return (
     <View style={styles.post}>
       {/* Post Header with details about the author */}
-      <View style={styles.header}>
-        <Image source={{ uri: post.User.image }} style={styles.profileImage} />
-        <View>
-          <Text style={styles.name}>{post.User.name}</Text>
-          <Text style={styles.subtitle}>{post.createdAt}</Text>
+      <Pressable
+        onPress={() => navigation.navigate("Profile", { id: post.postUserId })}
+        style={styles.header}
+      >
+        <View style={styles.header}>
+          <Image
+            source={{ uri: post.User.image }}
+            style={styles.profileImage}
+          />
+          <View>
+            <Text style={styles.name}>{post.User.name}</Text>
+            <Text style={styles.subtitle}>{post.createdAt}</Text>
+          </View>
+          <Entypo
+            name="dots-three-horizontal"
+            size={18}
+            color="gray"
+            style={styles.icon}
+          />
         </View>
-        <Entypo
-          name="dots-three-horizontal"
-          size={18}
-          color="gray"
-          style={styles.icon}
-        />
-      </View>
+      </Pressable>
 
       {/* Post body with description and image */}
       <Text style={styles.description}>{post.description}</Text>

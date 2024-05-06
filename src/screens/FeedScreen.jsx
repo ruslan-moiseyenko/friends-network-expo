@@ -1,14 +1,16 @@
 import posts from "@Assets/data/posts.json";
 import { FeedPost } from "@Components/FeedPost";
 import { Entypo } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { FlatList, Image, Pressable, StyleSheet, Text } from "react-native";
 
 const img = "@Assets/emptyAvatar.png";
 
 export const FeedScreen = () => {
+  const navigation = useNavigation();
   const createPost = () => {
-    console.warn("Post is created");
+    navigation.navigate("CreatePost");
   };
   return (
     <FlatList
